@@ -27,6 +27,7 @@ export async function getChannelList() {
  * @param {number} [page=1]  页码数
  * @param {number} [maxResult=10] 一页展示数量 
  */
+
 export async function getNewsList(channelId, page = 1, maxResult = 10) {
     var res = await axios.get('http://ali-news.showapi.com/newsList', {
         headers: {
@@ -35,9 +36,10 @@ export async function getNewsList(channelId, page = 1, maxResult = 10) {
         params: {
             channelId,
             page,
-            maxResult
+            maxResult,
+            needContent: 1
         }
 
     })
-    console.log(res.data.showapi_res_body.pagebean)
+    return res.data.showapi_res_body.pagebean.contentlist
 }
