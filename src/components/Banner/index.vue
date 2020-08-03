@@ -12,7 +12,7 @@
         <li v-for="(banner,index) in banners" :key='index' :class="{active:curIndex===index}" @click="curIndex=index"></li>
       </ul>
     </div>
-    <button @click="show = !show">轮播图显隐</button>
+    <button @click="changeShow()">轮播图显隐</button>
   </div>
 </template>
 
@@ -44,13 +44,23 @@ export default {
       }
     this.timer = setInterval(()=>{
         this.curIndex = (this.curIndex+1)%this.banners.length;
+        console.log(this.curIndex)
       },this.duration)
     },
     // 停止切换
     autoStop(){
       clearInterval(this.timer)
       this.timer = null;
+    },
+    changeShow() {
+      this.show = !this.show
+      if(! this.show ){
+      clearInterval(this.timer)
+      this.timer = null
+      }
+
     }
+
   },
   // mounted(){
   //   this.autostart()
@@ -59,7 +69,8 @@ export default {
    this.autoStop()
   },
   beforeDestroy() {
-    // 页面关闭（路由跳转）时清除定时器
+    // 页面关闭（路由跳转）时清除定时器   
+    // 定时器未生效是因为暂停时页面暂时未销毁
     clearInterval(this.timer)
     this.timer = null
   },
