@@ -3,6 +3,10 @@
     <Banner :banners="banners" />
     <ChannelList @changeChannelId='changeChannelId'/>
    <newsList :news="news"/>
+   <Modal>
+     <Center>
+     <Loading/>
+      </Center> </Modal>
   </div>
 </template>
 
@@ -10,14 +14,19 @@
 import Banner from "./components/Banner";
 import ChannelList from './components/news/channelList';
 import newsList from './components/news/newsList';
-import {getNewsList} from './services/api/getNewsInfo'
-
+// import {getNewsList} from './services/api/getNewsInfo'
+import Modal from "./components/base/modal";
+import Loading from './components/base/loading'
+import Center from './components/base/center'
 export default {
   name: "App",
   components: {
     Banner,
     ChannelList,
-    newsList
+    newsList,
+    Modal,
+    Loading,
+    Center
   },
   data() {
     return {
@@ -56,14 +65,14 @@ export default {
   //   })
   //   }
   // },
-  async created(){
-    console.log()
-    // var curId='5572a108b3cdc86cf39001cd' 
-       await  getNewsList(this.currentChannelId).then(res=>{
-         console.log(res)
-      this.news = res
-    })
-  }
+  // async created(){
+  //   console.log()
+  //   // var curId='5572a108b3cdc86cf39001cd' 
+  //      await  getNewsList(this.currentChannelId).then(res=>{
+  //        console.log(res)
+  //     this.news = res
+  //   })
+  // }
 };
 </script>
 

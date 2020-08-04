@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { getChannelList } from '@/services/api/getNewsInfo'
+// import { getChannelList } from '@/services/api/getNewsInfo'
 export default {
   name: 'channelList',
   data () {
@@ -38,11 +38,11 @@ export default {
 
 
   },
- async created(){
-    this.channelList = await getChannelList()
-    console.log(this.channelList[0].channelId) 
-     this.curId = this.channelList[0].channelId
-  },
+//  async created(){
+//     this.channelList = await getChannelList()
+//     console.log(this.channelList[0].channelId) 
+//      this.curId = this.channelList[0].channelId
+//   },
   computed:{
     showChannelList(){
       if(this.isCollapse){
