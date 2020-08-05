@@ -6,16 +6,15 @@
 
 <script>
 export default {
-  name:'center'
-}
+  name: "center"
+};
 </script>
 
 <style scoped>
-.center{
+.center {
   position: fixed;
   top: 50%;
-  left:50%;
-  transform: translate(-50%,-50%);
-
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 </style>

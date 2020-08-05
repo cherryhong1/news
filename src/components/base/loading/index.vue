@@ -8,8 +8,8 @@
 
 <script>
 export default {
-  name: 'loading'
-}
+  name: "loading"
+};
 </script>
 
 <style scoped>
@@ -19,9 +19,9 @@ export default {
   text-align: center;
 }
 .loading span {
-   width: 30px;
+  width: 30px;
   height: 30px;
-  background-color: #67CF22; 
+  background-color: #67cf22;
   border-radius: 100%;
   display: inline-block;
   -webkit-animation: load 1.4s infinite ease-in-out;
@@ -37,7 +37,6 @@ export default {
 .loading span:nth-child(2) {
   animation-delay: -0.2s;
 }
-
 
 @keyframes load {
   0%,

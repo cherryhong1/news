@@ -1,15 +1,29 @@
 <template>
   <div class="banner-container">
-    <div class="banner" @mouseenter="autoStop()" @mouseleave="autostart()" v-show="show">
+    <div
+      class="banner"
+      @mouseenter="autoStop()"
+      @mouseleave="autostart()"
+      v-show="show"
+    >
       <ul class="bannerBox">
-        <li v-for="(banner, index) in banners" :key="index" :class="{active:curIndex===index}">
+        <li
+          v-for="(banner, index) in banners"
+          :key="index"
+          :class="{ active: curIndex === index }"
+        >
           <a :href="banner.url">
             <img :src="banner.path" :alt="banner.title" />
           </a>
         </li>
       </ul>
       <ul class="dotted">
-        <li v-for="(banner,index) in banners" :key='index' :class="{active:curIndex===index}" @click="curIndex=index"></li>
+        <li
+          v-for="(banner, index) in banners"
+          :key="index"
+          :class="{ active: curIndex === index }"
+          @click="curIndex = index"
+        ></li>
       </ul>
     </div>
     <button @click="changeShow()">轮播图显隐</button>
@@ -24,56 +38,53 @@ export default {
       type: Array,
       required: true
     },
-    duration:{
-      type:Number,
-      default:2000
+    duration: {
+      type: Number,
+      default: 2000
     }
   },
   data() {
     return {
-      curIndex: 0,//当前显示的是第几张图片
-      timer:null,//定时器事件
-      show:true,//当前轮播图是否显示
+      curIndex: 0, //当前显示的是第几张图片
+      timer: null, //定时器事件
+      show: true //当前轮播图是否显示
     };
   },
-  methods:{
+  methods: {
     // 自动开始切换
-    autostart(){
-      if(this.timer){
-        return
+    autostart() {
+      if (this.timer) {
+        return;
       }
-    this.timer = setInterval(()=>{
-        this.curIndex = (this.curIndex+1)%this.banners.length;
-        console.log(this.curIndex)
-      },this.duration)
+      this.timer = setInterval(() => {
+        this.curIndex = (this.curIndex + 1) % this.banners.length;
+      }, this.duration);
     },
     // 停止切换
-    autoStop(){
-      clearInterval(this.timer)
+    autoStop() {
+      clearInterval(this.timer);
       this.timer = null;
     },
     changeShow() {
-      this.show = !this.show
-      if(! this.show ){
-      clearInterval(this.timer)
-      this.timer = null
+      this.show = !this.show;
+      if (!this.show) {
+        clearInterval(this.timer);
+        this.timer = null;
       }
-
     }
-
   },
   // mounted(){
   //   this.autostart()
   // },
-  destroyed(){
-   this.autoStop()
+  destroyed() {
+    this.autoStop();
   },
   beforeDestroy() {
-    // 页面关闭（路由跳转）时清除定时器   
+    // 页面关闭（路由跳转）时清除定时器
     // 定时器未生效是因为暂停时页面暂时未销毁
-    clearInterval(this.timer)
-    this.timer = null
-  },
+    clearInterval(this.timer);
+    this.timer = null;
+  }
 };
 </script>
 
@@ -119,8 +130,9 @@ export default {
 .dotted li.active {
   background: rgb(114, 224, 11);
 }
-button{
+button {
   width: 200px;
   background: rgb(177, 84, 84);
+  display: none;
 }
 </style>

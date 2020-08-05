@@ -1,76 +1,79 @@
 <template>
-  <div class="channelContainer contanier" v-if="channelList.length>0">
+  <div class="channelContainer contanier" v-if="channelList.length > 0">
     <ul class="channellist">
-      <li  v-for="item in showChannelList" :key="item.id"          
-        :class='item.channelId===curId?"active":""' 
-        @click='switchTo(item.channelId)'>{{item.name}}</li>
+      <li
+        v-for="item in showChannelList"
+        :key="item.id"
+        :class="item.channelId === curId ? 'active' : ''"
+        @click="switchTo(item.channelId)"
+      >
+        {{ item.name }}
+      </li>
+          <a href="" class="fold" @click.prevent="isCollapse = !isCollapse">{{
+      isCollapse ? "展开" : "收起"
+    }}</a>
     </ul>
-    <a href="" class="fold" @click.prevent="isCollapse = !isCollapse">{{isCollapse?'展开':'收起'}}</a>
+
   </div>
 </template>
 
 <script>
-// import { getChannelList } from '@/services/api/getNewsInfo'
+import { getChannelList } from "@/services/api/getNewsInfo";
 export default {
-  name: 'channelList',
-  data () {
+  name: "channelList",
+  data() {
     return {
-      hoverColor: 0,//是否hover
-      channelList: [],//栏目列表
-      isCollapse:1,//是否为折叠状态，1为折叠，0为展开状态
-      curId:null
-    }
+      hoverColor: 0, //是否hover
+      channelList: [], //栏目列表
+      isCollapse: 1, //是否为折叠状态，1为折叠，0为展开状态
+      curId: null
+    };
   },
   methods: {
-    changeColor () {
-      this.hoverColor = 1
+    changeColor() {
+      this.hoverColor = 1;
     },
-    // getchannel () {
-    //    getChannelList().then(res => {
-    //     this.channelList =res;
-    //     console.log(this.channelList)
-    //   })
-    // },
-    switchTo(id){
+    getchannel() {
+      getChannelList().then(res => {
+        this.channelList = res;
+        console.log(this.channelList);
+      });
+    },
+    switchTo(id) {
       this.curId = id;
-      this.$emit('changeChannelId',id)
-    },
-
-
+      this.$emit("changeChannelId", id);
+    }
   },
-//  async created(){
-//     this.channelList = await getChannelList()
-//     console.log(this.channelList[0].channelId) 
-//      this.curId = this.channelList[0].channelId
-//   },
-  computed:{
-    showChannelList(){
-      if(this.isCollapse){
-      return  this.channelList.slice(0,8)
+  async created() {
+    this.channelList = await getChannelList();
+    console.log(this.channelList[0].channelId);
+    this.curId = this.channelList[0].channelId;
+    this.$emit("changeChannelId", this.curId);
+  },
+  computed: {
+    showChannelList() {
+      if (this.isCollapse) {
+        return this.channelList.slice(0, 8);
       }
-      return  this.channelList;
+      return this.channelList;
     }
   }
-}
+};
 </script>
 
 <style scoped>
-
 .channelContainer {
   margin-top: 10px;
-  
 }
 .channellist {
- display: inline-block;
-  
-
+  display: inline-block;
 }
 .channellist li {
-   display: inline-block;
+ float: left;
   margin-right: 10px;
-  padding: 10px 20px;
+  padding: 5px 10px;
   border: 1px solid rgb(201, 186, 186);
-  font-weight: 24px;
+  font-size: 24px;
   font-weight: 700;
   color: rgb(65, 54, 54);
   cursor: pointer;
@@ -82,9 +85,11 @@ export default {
 .channellist li.hover {
   color: #4d0909;
 }
-.fold{
+.fold {
   color: #000;
   font-size: 26px;
-  display: inline-block;
+  /* display: inline-block; */
+  float: left;
+
 }
 </style>
