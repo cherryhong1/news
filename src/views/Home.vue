@@ -12,13 +12,13 @@
 </template>
 
 <script>
-import Banner from "../components/Banner";
-import Loading from "../components/Base/Loading";
-import Center from "../components/Base/Center";
-import Modal from "../components/Base/Modal";
-import ChannelList from "../components/News/ChannelList";
-import NewsList from "../components/News/NewsList/";
-import { getNewsList } from "../services/api/getNewsInfo";
+import Banner from "@/components/Banner";
+import Loading from "@/components/base/loading";
+import Center from "@/components/base/center";
+import Modal from "@/components/base/modal";
+import ChannelList from "@/components/news/channelList";
+import NewsList from "@/components/news/newsList/";
+import { getNewsList } from "@/services/api/getNewsInfo";
 
 export default {
   name: "Home",

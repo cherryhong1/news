@@ -9,11 +9,10 @@
       >
         {{ item.name }}
       </li>
-          <a href="" class="fold" @click.prevent="isCollapse = !isCollapse">{{
-      isCollapse ? "展开" : "收起"
-    }}</a>
+      <a href="" class="fold" @click.prevent="isCollapse = !isCollapse">{{
+        isCollapse ? "展开" : "收起"
+      }}</a>
     </ul>
-
   </div>
 </template>
 
@@ -69,7 +68,7 @@ export default {
   display: inline-block;
 }
 .channellist li {
- float: left;
+  float: left;
   margin-right: 10px;
   padding: 5px 10px;
   border: 1px solid rgb(201, 186, 186);
@@ -90,6 +89,5 @@ export default {
   font-size: 26px;
   /* display: inline-block; */
   float: left;
-
 }
 </style>

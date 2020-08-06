@@ -1,6 +1,7 @@
 import Vue from "vue";
 import App from "./App.vue";
 import "./assets/style/reset.css";
+import router from './routes/index'
 // import { getChannelList, getNewsList } from "./services/api/getNews";
 
 //第一种方式： async 可以通过.then(res)来获取的到数据
@@ -17,5 +18,6 @@ import "./assets/style/reset.css";
 // getNewlist2()
 
 new Vue({
-  render: h => h(App)
+    render: h => h(App),
+    router
 }).$mount("#app");
