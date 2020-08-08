@@ -1,11 +1,34 @@
 <template>
-  <div class="channelList">某一新闻界面：channelId:{{ $route.params.id }}</div>
+  <div class="channelList">
+<Page 
+:curPage='curPage'
+ :totalIist='202'
+  :limitPage='6'
+  @pageChange="pageChange"
+  ></Page>
+  </div>
 </template>
 
 <script>
+import Page from '../components/base/page'
 export default {
   name: "channelList",
-  created() {}
+  data(){
+    return{
+      curPage:8
+    }
+  },
+  methods:{
+    pageChange(page){     
+     this.curPage = page;
+    }
+  },
+  components:{
+    Page
+  },
+  created() {
+    // console.log(this.$route.params.id )
+  }
 };
 </script>
 

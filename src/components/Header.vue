@@ -43,10 +43,8 @@ export default {
     };
   },
   async created() {
-    const res = await getChannelList();
-    
+    const res = await getChannelList();    
     this.channelList = res.slice(0, 5);
-    console.log( this.channelList)
   }
 };
 </script>
