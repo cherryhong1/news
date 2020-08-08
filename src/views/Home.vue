@@ -57,7 +57,6 @@ export default {
     async handelChannelId(id) {
       this.isLoading = true;
       var res = await getNewsList(id);
-      console.log(res);
       this.isLoading = false;
       this.news = res;
     }

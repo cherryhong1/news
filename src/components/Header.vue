@@ -2,21 +2,31 @@
   <div class="header">
     <div class="navContainer container clearfix">
       <div class="logoContainer">
-        <a href="https//www.baidu.com">
+        <router-link :to="{ name: 'Home' }">
           <img src="../assets/logo.png" alt=""
-        /></a>
+        /></router-link>
       </div>
       <ul class="nav">
-        <li>首页</li>
-        <li>国内头条</li>
-        <li>娱乐新闻</li>
-        <li>教育新闻</li>
-        <li>互联网新闻</li>
+        <li>
+          <router-link :to="{ name: 'Home' }">首页</router-link>
+        </li>
+        <li v-for="item in channelList" :key="item.channelId">
+          <router-link
+            :to="{
+              name: 'NewsChannel',
+              params: {
+                id: item.channelId
+              }
+            }"
+          >{{item.name}}</router-link>
+        </li>
       </ul>
       <div class="infoContainer">
-        <span class="login">登录</span>
+        <span class="login">
+          <router-link :to="{ name: 'Login' }"> 登录 </router-link>
+        </span>
         <span class="register">
-          注册
+          <router-link :to="{ name: 'Register' }"> 注册 </router-link>
         </span>
       </div>
     </div>
@@ -24,8 +34,20 @@
 </template>
 
 <script>
+import { getChannelList } from "../services/api/getNewsInfo";
 export default {
-  name: "Header"
+  name: "Header",
+  data() {
+    return {
+      channelList: []
+    };
+  },
+  async created() {
+    const res = await getChannelList();
+    
+    this.channelList = res.slice(0, 5);
+    console.log( this.channelList)
+  }
 };
 </script>
 
@@ -39,7 +61,7 @@ export default {
   z-index: 20;
   background: #000;
 }
-.navContainer{
+.navContainer {
   width: 1080px;
   margin-left: auto;
   margin-right: auto;
@@ -47,13 +69,12 @@ export default {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  font-size: 26px;
+  font-size: 24px;
 }
-.navContainer a{
+.navContainer a {
   color: #fff;
 }
 .logoContainer {
-
   width: 30px;
   vertical-align: middle;
 }
@@ -71,13 +92,14 @@ export default {
 .nav li.active {
   color: blueviolet;
 }
-.infoContainer {
-  /* float: right; */
-}
+
 .infoContainer span {
   cursor: pointer;
   line-height: 60px;
   margin-right: 20px;
   color: #333;
+}
+.navContainer a.router-link-exact-active{
+color: brown;
 }
 </style>
