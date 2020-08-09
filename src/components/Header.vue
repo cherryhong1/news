@@ -3,14 +3,15 @@
     <div class="navContainer container clearfix">
       <div class="logoContainer">
         <router-link :to="{ name: 'Home' }">
-          <img src="../assets/logo.png" alt=""
-        /></router-link>
+          <img src="../assets/logo.png"
+               alt="" /></router-link>
       </div>
       <ul class="nav">
         <li>
           <router-link :to="{ name: 'Home' }">首页</router-link>
         </li>
-        <li v-for="item in channelList" :key="item.channelId">
+        <li v-if='isLoading'>loading...</li>
+        <li v-else v-for="item in channelList" :key="item.channelId">
           <router-link
             :to="{
               name: 'NewsChannel',
@@ -35,18 +36,28 @@
 </template>
 
 <script>
-import { getChannelList } from "../services/api/getNewsInfo";
+import { mapState } from 'vuex'
 export default {
   name: "Header",
-  data() {
+  data () {
     return {
-      channelList: []
+      // channelList: []
     };
   },
-  async created() {
-    const res = await getChannelList();
-    this.channelList = res.slice(0, 5);
-  }
+  computed: {
+    ...mapState({
+      channelList: state => state.newsInfo.channelList.slice(0,5),
+      isLoading:state => state.newsInfo.isLoading
+    })
+  },
+  // created(){
+  //   setTimeout(()=>{
+  //   this.$store.dispatch('newsInfo/fetchIsLoading',false)
+  //   },1000)
+    
+  //   this.$store.dispatch('newsInfo/fetchChannelList')
+  // }
+
 };
 </script>
 

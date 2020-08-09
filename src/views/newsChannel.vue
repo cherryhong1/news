@@ -16,14 +16,14 @@ import Page from "../components/base/page";
 import newList from "../components/news/newsList";
 import Loading from '../components/base/center'
 import * as newInfo from '../services/api/getNewsInfo'
+// import {mapState} from 'vuex'
 export default {
   name: "channelList",
   data () {
     return {
-
       limitPage: 6,
       totalIist: 10,
-      curChannelName: '',
+     // curChannelName: '',
       news: [],
       isLoading: true
     };
@@ -36,6 +36,20 @@ export default {
   computed: {
     curPage () {
       return +this.$route.query.page || 1
+    },
+    // ...mapState({
+    //   channelList: state => state.newsInfo.channelList
+    // }),
+    //当前栏目名称
+    curChannelName(){
+      const channelList = this.$store.state.newsInfo.channelList;     
+      if(channelList.length>0){
+      var channel = channelList.find(
+          item=>item.channelId === this.$route.params.id
+        )
+        return channel.name
+      }
+      return ""
     }
   },
   methods: {
@@ -52,15 +66,15 @@ export default {
       this.getNewsList()
     },
     //获取新闻标题
-    async getChannelName () {
-      var res = await newInfo.getChannelList()
-      console.log(this.$route.params.id)
-      var channel = res.find(item => {
-        return item.channelId = this.$route.params.id
-      })
-      this.curChannelName = channel.name
-    },
-    //获取新闻列表页
+    // async getChannelName () {
+    //   var res = await newInfo.getChannelList()
+    //   console.log(this.$route.params.id)
+    //   var channel = res.find(item => {
+    //     return item.channelId = this.$route.params.id
+    //   })
+    //   this.curChannelName = channel.name
+    // },
+     //获取新闻列表页
     async getNewsList () {
       this.isLoading = true;
       var res = await newInfo.getNewsList(this.$route.params.id, this.curPage, this.limitPage)
@@ -74,7 +88,7 @@ export default {
     "$route.params.id": {
       immediate: true,
       handler () {
-        this.getChannelName()
+        // this.getChannelName()
         this.getNewsList()
       }
     }
