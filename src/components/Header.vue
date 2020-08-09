@@ -18,7 +18,8 @@
                 id: item.channelId
               }
             }"
-          >{{item.name}}</router-link>
+            >{{ item.name }}</router-link
+          >
         </li>
       </ul>
       <div class="infoContainer">
@@ -43,7 +44,7 @@ export default {
     };
   },
   async created() {
-    const res = await getChannelList();    
+    const res = await getChannelList();
     this.channelList = res.slice(0, 5);
   }
 };
@@ -97,7 +98,7 @@ export default {
   margin-right: 20px;
   color: #333;
 }
-.navContainer a.router-link-exact-active{
-color: brown;
+.navContainer a.router-link-exact-active {
+  color: brown;
 }
 </style>

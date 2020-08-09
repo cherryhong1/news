@@ -8,12 +8,12 @@ import appcode from "../config";
  * @returns 返回栏目列表信息
  */
 export async function getChannelList() {
-  var res = await axios.get("http://ali-news.showapi.com/channelList", {
-    headers: {
-      Authorization: `APPCODE ${appcode}`
-    }
-  });
-  return res.data.showapi_res_body.channelList;
+    var res = await axios.get("http://ali-news.showapi.com/channelList", {
+        headers: {
+            Authorization: `APPCODE ${appcode}`
+        }
+    });
+    return res.data.showapi_res_body.channelList;
 }
 
 /**
@@ -26,16 +26,16 @@ export async function getChannelList() {
  */
 
 export async function getNewsList(channelId, page = 1, maxResult = 10) {
-  var res = await axios.get("http://ali-news.showapi.com/newsList", {
-    headers: {
-      Authorization: `APPCODE ${appcode}`
-    },
-    params: {
-      channelId,
-      page,
-      maxResult,
-      needContent: 1
-    }
-  });
-  return res.data.showapi_res_body.pagebean.contentlist;
+    var res = await axios.get("http://ali-news.showapi.com/newsList", {
+        headers: {
+            Authorization: `APPCODE ${appcode}`
+        },
+        params: {
+            channelId,
+            page,
+            maxResult,
+            needContent: 1
+        }
+    });
+    return res.data.showapi_res_body.pagebean;
 }

@@ -58,7 +58,7 @@ export default {
       this.isLoading = true;
       var res = await getNewsList(id);
       this.isLoading = false;
-      this.news = res;
+      this.news = res.contentlist;
     }
   }
 };
