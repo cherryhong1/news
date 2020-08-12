@@ -12,6 +12,7 @@ import store from "./store"
 //     console.log(res)
 // }
 // test()
+store.dispatch('userInfo/fetchWhoIam')
 store.dispatch('newsInfo/fetchChannelList')
 new Vue({
     render: h => h(App),

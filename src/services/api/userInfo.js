@@ -10,13 +10,32 @@ import axios from "axios";
  * @returns token 令牌 和登录信息
  */
 export async function loginIn(userInfo) {
-    var res = await axios.post('/api/user/login', userInfo)
-    var token = res.headers.authorization;
+    // var res = await axios.post('/api/user/login', userInfo)
+    // var token = res.headers.authorization;
+    var res = {};
+    var token = "";
+    if (userInfo.userId == '123' && userInfo.userPwd == '123') {
+        token = "123"
+        res = {
+            code: 0,
+            data: {
+                userId: '123',
+                nickname: '欢欢'
+            }
+        }
+    } else {
+        token = ""
+        res = {
+            code: 1,
+            data: {}
+        }
+    }
+
     if (token) {
         localStorage.setItem("token", token)
     }
 
-    return res.data.data
+    return res
 }
 
 /**
@@ -41,10 +60,17 @@ export async function whoami() {
     if (!token) {
         return null
     }
-    var res = await axios.get('/api/user/whoami', {
-        authorization: `bearer ${token}`
-    })
-    return res.data.data
+    // var res = await axios.get('/api/user/whoami', {
+    //     authorization: `bearer ${token}`
+    // })
+    var res = {
+        code: 0,
+        data: {
+            userId: '123',
+            nickname: '欢欢'
+        }
+    }
+    return res
 }
 
 /**

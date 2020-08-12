@@ -11,25 +11,33 @@
           <router-link :to="{ name: 'Home' }">首页</router-link>
         </li>
         <li v-if='isLoading'>loading...</li>
-        <li v-else v-for="item in channelList" :key="item.channelId">
-          <router-link
-            :to="{
+        <li v-else
+            v-for="item in channelList"
+            :key="item.channelId">
+          <router-link :to="{
               name: 'NewsChannel',
               params: {
                 id: item.channelId
               }
-            }"
-            >{{ item.name }}</router-link
-          >
+            }">{{ item.name }}</router-link>
         </li>
       </ul>
       <div class="infoContainer">
-        <span class="login">
-          <router-link :to="{ name: 'Login' }"> 登录 </router-link>
-        </span>
-        <span class="register">
-          <router-link :to="{ name: 'Register' }"> 注册 </router-link>
-        </span>
+        <template v-if='isLogining'>
+          ...isLogining
+        </template>
+        <template v-else-if="userInfo&&!isLogining">
+          <span>{{userInfo.nickname}}</span>
+          <a @click="handlerLoginOut"> 退出登录</a>
+        </template>
+        <template v-else>
+          <span class="login">
+            <router-link :to="{ name: 'Login' }"> 登录 </router-link>
+          </span>
+          <span class="register">
+            <router-link :to="{ name: 'Register' }"> 注册 </router-link>
+          </span>
+        </template>
       </div>
     </div>
   </div>
@@ -46,15 +54,26 @@ export default {
   },
   computed: {
     ...mapState({
-      channelList: state => state.newsInfo.channelList.slice(0,5),
-      isLoading:state => state.newsInfo.isLoading
+      channelList: state => state.newsInfo.channelList.slice(0, 5),
+      isLoading: state => state.newsInfo.isLoading,
+      userInfo: state => state.userInfo.userInfo,
+      isLogining: state => state.userInfo.isLoading
+
     })
   },
+  methods:{
+    handlerLoginOut(){
+      this.$store.dispatch('userInfo/clearUser')
+      this.$router.push({
+        name:'Login'
+      })
+    }
+  }
   // created(){
   //   setTimeout(()=>{
   //   this.$store.dispatch('newsInfo/fetchIsLoading',false)
   //   },1000)
-    
+
   //   this.$store.dispatch('newsInfo/fetchChannelList')
   // }
 

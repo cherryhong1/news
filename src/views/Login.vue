@@ -20,7 +20,7 @@
         </div>
         <Error :msg="error.userPwd"></Error>
         <div class="input-item">
-          <button>登录</button>
+          <button>{{isLogining?'...loading':'登录'}}</button>
         </div>
       </form>
     </Center>
@@ -30,6 +30,7 @@
 <script>
 import Center from "../components/base/center";
 import Error from "../components/base/error";  //错误信息提示
+import { mapState } from "vuex"
 // import { userInfo } from "../services/api/userInfo"
 export default {
   name: "login",
@@ -49,6 +50,11 @@ export default {
       }
     }
   },
+  computed: {
+    ...mapState({
+      isLogining: state => state.userInfo.isLoading
+    })
+  },
   methods: {
     // 非空验证
     validateEmpty (filed, msg) {
@@ -60,23 +66,35 @@ export default {
         return true
       }
     },
-  
-  async summitUserInfo () {
-    if (this.validateEmpty('userId', '*账号不能为空') & this.validateEmpty('userPwd', '*密码不能为空')) {
-      console.log(2)
-      // var res = await userInfo(this.userInfo)
-      // if (res.msg == "") {
-      //   // 登录成功
-      //   this.$router.push({
-      //     name:'Login'
-      //   })
-      // } else {
-      //   this.error.userId = res.msg
-      // }
-    }
-  }
 
-}
+    async summitUserInfo () {
+      console.log(this.isLogining)
+      if (this.isLogining) {
+        return false
+      }
+      if (this.validateEmpty('userId', '*账号不能为空') & this.validateEmpty('userPwd', '*密码不能为空')) {
+        // var res = await userInfo(this.userInfo)
+        // if (res.msg == "") {
+        //   // 登录成功
+        //   this.$router.push({
+        //     name:'Login'
+        //   })
+        // } else {
+        //   this.error.userId = res.msg
+        // }
+        var result = this.$store.dispatch('userInfo/fetchUserInfo', this.userInfo)
+        console.log(result)
+        if (result) {
+          this.$router.push({
+            name: 'Home'
+          })
+        } else {
+          this.error.userId = '账号或者密码错误'
+        }
+      }
+    }
+
+  }
 };
 </script>
 
