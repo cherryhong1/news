@@ -26,8 +26,8 @@
         <template v-if='isLogining'>
           ...isLogining
         </template>
-        <template v-else-if="userInfo&&!isLogining">
-          <span>{{userInfo.nickname}}</span>
+        <template v-else-if="userInfo&&userInfo.nickname&&!isLogining">
+         <router-link :to="{name:'Personal'}">{{userInfo.nickname}}</router-link>         
           <a @click="handlerLoginOut"> 退出登录</a>
         </template>
         <template v-else>

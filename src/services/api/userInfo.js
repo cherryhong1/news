@@ -26,8 +26,7 @@ export async function loginIn(userInfo) {
     } else {
         token = ""
         res = {
-            code: 1,
-            data: {}
+            code: 1
         }
     }
 

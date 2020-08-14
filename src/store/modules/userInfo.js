@@ -27,8 +27,10 @@ const actions = {
     async fetchWhoIam({ commit }) {
         commit('setIsLoading', true)
         var res = await whoami()
-        console.log(res)
-        commit('setUserInfo', res.data)
+        if (res && res.code === 0) {
+            commit('setUserInfo', res.data)
+
+        }
         commit('setIsLoading', false)
     }
 
@@ -36,7 +38,6 @@ const actions = {
 
 const mutations = {
     setUserInfo(state, payload) {
-        console.log(payload)
         state.userInfo = payload
     },
     setIsLoading(state, payload) {
